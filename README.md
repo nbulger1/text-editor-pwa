@@ -85,3 +85,5 @@ This project is protected under the MIT License.
 ## Link
 
 See the following for deployed application: https://text-editor-pwa-bulger.herokuapp.com/
+
+![GIF demonstrating functionality of the progressive web application - both online and offline as well as showing "application" tab in Chrome dev tools](./images/text-editor-demo.gif)
