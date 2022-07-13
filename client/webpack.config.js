@@ -3,9 +3,6 @@ const WebpackPwaManifest = require("webpack-pwa-manifest");
 const path = require("path");
 const { InjectManifest } = require("workbox-webpack-plugin");
 
-// TODO: Add and configure workbox plugins for a service worker and manifest file.
-// TODO: Add CSS loaders and babel to webpack.
-
 module.exports = () => {
   return {
     mode: "development",
@@ -21,16 +18,23 @@ module.exports = () => {
       new HtmlWebpackPlugin({
         template: "./index.html",
       }),
+      // added webpack PWA manifest to create the manifest.json file
       new WebpackPwaManifest({
         fingerprints: false,
         inject: true,
+        // long name for the application
         name: "Just Another Text Editor",
+        // short name for the application
         short_name: "J.A.T.E",
+        // description of the application
         description: "Takes Notes with Javascript syntax highlighting!",
+        // background and theme colors
         background_color: "#225ca3",
         theme_color: "#225ca3",
+        // define the start URL and public path - make sure it matches the "/" or "./" in the if statement in index.js
         start_url: "/",
         publicPath: "/",
+        // define the icon using the logo in the image file - making multiple different size options of that logo
         icons: [
           {
             src: path.resolve("src/images/logo.png"),
@@ -39,11 +43,13 @@ module.exports = () => {
           },
         ],
       }),
+      // added the InjectManifest with src file and service worker destination file
       new InjectManifest({ swSrc: "./src-sw.js", swDest: "service-worker.js" }),
     ],
 
     module: {
       rules: [
+        // added in style- and css-loader for formatting
         {
           test: /\.css$/i,
           use: ["style-loader", "css-loader"],
@@ -51,7 +57,7 @@ module.exports = () => {
         {
           test: /\.m?js$/,
           exclude: /node_modules/,
-          // We use babel-loader in order to use ES6.
+          // adding in babel-loader to translate different javascript languages to one most likely universal to the browser
           use: {
             loader: "babel-loader",
             options: {
