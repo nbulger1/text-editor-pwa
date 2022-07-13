@@ -21,7 +21,6 @@ module.exports = () => {
       new HtmlWebpackPlugin({
         template: "./index.html",
       }),
-      new InjectManifest({ swSrc: "./src-sw.js", swDest: "service-worker.js" }),
       new WebpackPwaManifest({
         fingerprints: false,
         inject: true,
@@ -32,7 +31,6 @@ module.exports = () => {
         theme_color: "#225ca3",
         start_url: "/",
         publicPath: "/",
-        id: "/",
         icons: [
           {
             src: path.resolve("src/images/logo.png"),
@@ -41,6 +39,7 @@ module.exports = () => {
           },
         ],
       }),
+      new InjectManifest({ swSrc: "./src-sw.js", swDest: "service-worker.js" }),
     ],
 
     module: {
